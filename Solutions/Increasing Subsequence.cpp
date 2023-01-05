@@ -46,7 +46,7 @@ const ll INF = 1122334455667788990;
 #define     Ceil(a,b)         (a+b-1)/b
 #define     gcd(a, b)         __gcd(a,b)
 #define     lcm(a, b)         ((a)/gcd(a,b))*(b)
-#define     input             freopen("input.txt","rt", stdin)
+//#define     input             freopen("input.txt","rt", stdin)
 #define     output            freopen("output.txt","wt", stdout)
 #define     all(v)            v.begin(),v.end()
 #define     en                cout << '\n';
@@ -64,22 +64,25 @@ const ll INF = 1122334455667788990;
 #define     IOS               ios_base::sync_with_stdio(false); cin.tie(NULL);
 
 
-ll LIS(vector<ll>& num)
+
+ll Input[2*N + 5], n ;
+
+void LIS()
 {
-    ll n=SZ(num),res=0;
-    vll D(n+1,INF);
-    D[0]=-INF;
+    sll lis;
+    cin>>n;
+    for( int i = 0 ; i < n ; i++ )
+    {
+        cin>>Input[i];
+        if(lis.count(Input[i]))continue;
+        lis.insert( Input[i]);
+        auto it = lis.find( Input[i]);
+        it++;
 
-    for(int i=0; i<n; i++){
-        ll j=upper_bound(D.begin(),D.end(),num[i])-D.begin();
-        if(D[j-1]<num[i]&&D[j]>num[i])D[j]=num[i];
+        if( it != lis.end()) lis.erase(it);
     }
-    for(int i=0; i<=n; i++){
-        if(D[i]<INF)res=i;
-    }
-    return res;
+    cout<<SZ(lis)<<endl ;
 }
-
 
 int main()
 {
@@ -89,13 +92,7 @@ int main()
     for(ll tt=1; tt<=tst; tt++)
     {
         //code
-        ll n;
-        cin>>n;
-        vll v(n);
-        forIn(v,n);
-        cout<<LIS(v)<<endl;
-
-
+        LIS();
 
     }
 
